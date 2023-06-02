@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Новая покупка</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<!--/*@thymesVar id="buy" type="ru.den.shopping.dto.ShoppingDTO"*/-->
+<form th:method="POST" th:action="@{/shopping}" th:object="${buy}">
+  <label for="name">Введите название товара:</label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Name error</div>
+  <br/>
+
+  <label for="howMany">Введите количество:</label>
+  <input type="text" th:field="*{howMany}" id="howMany"/>
+  <div style="color:red" th:if="${#fields.hasErrors('howMany')}" th:errors="*{howMany}">date error</div>
+  <br/>
+
+  <label for="store">Введите магазин:</label>
+  <input type="text" th:field="*{store}" id="store"/>
+  <div style="color:red" th:if="${#fields.hasErrors('store')}" th:errors="*{store}">store error</div>
+  <br/>
+
+  <input type="submit" value="Создать!"/>
+</form>
+
+</body>
+</html>

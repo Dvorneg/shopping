@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Все покупки</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<!--/*@thymesVar id="shopping" type="ru.den.shopping.dto.ShoppingDTO"*/-->
+<div th:each="buy:${shopping}">
+    <a th:href="@{/shopping/{id}(id=${buy.getId()})}"
+       th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
+</div>
+
+<br/>
+
+<a href="/shopping/new">Добавить покупку</a>
+
+<br/>
+<hr/>
+<a href="/shopping">Список покупок</a>
+
+
+</body>
+</html>
