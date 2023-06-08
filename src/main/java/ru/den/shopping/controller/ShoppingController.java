@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Slf4j
 @Controller
 @RequestMapping("/shopping")
-//@RequestMapping(value = "/shopping")
 public class ShoppingController {
 
     private final ShoppingService shoppingService;
@@ -37,12 +36,6 @@ public class ShoppingController {
         return "/shopping";
         //return "books/index";
     }
-
-/*    @GetMapping("/")
-    public String getAll() {
-        log.info("getAll");
-        return "shopping";
-    }*/
 
     @GetMapping("/{id}")
     public String getShoppingById(Model model, @PathVariable int id) {

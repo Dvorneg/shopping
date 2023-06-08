@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Покупки</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div th:if="${shopping.isEmpty()}">
+    <p>Покупки пока не запланированы!</p>
+    <hr/>
+</div>
+
+<!--/*@thymesVar id="famillies" type="java.util.List"*/-->
+<div th:if="${famillies.size()>1}">
+    <span>У вас несколько списков (семей) </span>
+    <!--<form th:method="PATCH" th:action="@{/family/{id}/assign(id=${family.getId()})}">-->
+    <form th:method="GET" th:action="@{/family/2}">
+        <label for="family">Выберите семью:</label>
+        <select th:object="${user}" th:field="*{id}" id="family">
+            <option th:each="family : ${famillies}" th:value="${family.getId()}" th:text="${family.getName()}">
+            </option>
+        </select>
+        <input type="submit" value="Выбрать"/>
+    </form>
+</div>
+
+
+<!--/*@thymesVar id="buy" type="ru.den.shopping.dto.ShoppingDTO"*/-->
+<div th:each="buy:${shopping}">
+    <a th:href="@{/shopping/{id}(id=${buy.getId()})}"
+       th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
+</div>
+
+
+</body>
+</html>
