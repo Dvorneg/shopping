@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.den.shopping.model.Family;
 import ru.den.shopping.repository.FamilyRepository;
+import ru.den.shopping.util.ShoppingException;
 
 import java.util.List;
 
@@ -22,6 +23,12 @@ public class FamilyService {
     public List<Family> getAllFamily()
     {
         return familyRepository.findAll();
+    }
+
+    public Family getFamily(Integer familyId)
+    {
+        return familyRepository.findById(familyId).orElseThrow(() -> new ShoppingException("Элемент не найден!"));
+        //todo ShoppingException->familyException
     }
 
 }

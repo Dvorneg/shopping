@@ -34,4 +34,12 @@ public class Family {
             inverseJoinColumns=@JoinColumn(name="user_id"))
     private List<User> users;
 
+    public Family(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+/*   @OneToMany(mappedBy = "owner")
+    private List<Shopping> shopping;*/
+
+
 }

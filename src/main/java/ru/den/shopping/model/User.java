@@ -33,4 +33,9 @@ public class User {
     private List<Family> families;
 
 
+    public User(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 }

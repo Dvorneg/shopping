@@ -14,8 +14,9 @@
 <!--/*@thymesVar id="famillies" type="java.util.List"*/-->
 <div th:if="${famillies.size()>1}">
     <span>У вас несколько списков (семей) </span>
-    <!--<form th:method="PATCH" th:action="@{/family/{id}/assign(id=${family.getId()})}">-->
-    <form th:method="GET" th:action="@{/family/2}">
+   <!-- <form th:method="PATCH" th:action="@{/family/{id}/assign(id=${family.getId()})}">-->
+    <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
+    <form th:method="GET" th:action="@{/family}">
         <label for="family">Выберите семью:</label>
         <select th:object="${user}" th:field="*{id}" id="family">
             <option th:each="family : ${famillies}" th:value="${family.getId()}" th:text="${family.getName()}">
@@ -25,12 +26,17 @@
     </form>
 </div>
 
+<hr/>
 
 <!--/*@thymesVar id="buy" type="ru.den.shopping.dto.ShoppingDTO"*/-->
-<div th:each="buy:${shopping}">
+<form th:object="${show}">
+
+</form>
+
+<!--<div th:each="buy:${shopping}">
     <a th:href="@{/shopping/{id}(id=${buy.getId()})}"
        th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
-</div>
+</div>-->
 
 
 </body>

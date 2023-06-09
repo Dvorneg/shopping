@@ -43,6 +43,10 @@ public class Shopping {
     private String store;
 
     //private String howMach;
+    @ManyToOne
+    @JoinColumn(name = "family_id", referencedColumnName = "id")
+    private Family owner;
+
 
     @Override
     public boolean equals(Object o) {

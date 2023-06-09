@@ -8,7 +8,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.annotation.Transactional;
+import ru.den.shopping.model.Family;
 import ru.den.shopping.model.Shopping;
+import ru.den.shopping.model.User;
 import ru.den.shopping.repository.ShoppingRepository;
 
 import java.time.LocalDateTime;
@@ -32,7 +34,10 @@ class ShoppingServiceTest {
     public void getShopping()
     {
         Integer shoppingId=1;
-        Shopping testShopping = new Shopping(shoppingId, "пакет для пакетов", LocalDateTime.of(2004, 10, 19, 10, 23, 54, 0), "100 гр","Шестёрочка");
+
+        User user = new User(1,"Коля");
+        Family  owner = new Family(1, "Петровы");
+        Shopping testShopping = new Shopping(shoppingId, "пакет для пакетов", LocalDateTime.of(2004, 10, 19, 10, 23, 54, 0), "100 гр","Шестёрочка", owner);
         Mockito.when(shoppingRepository.findById(shoppingId)).thenReturn(java.util.Optional.of(testShopping));
         Assertions.assertEquals(shoppingService.getShopping(shoppingId),testShopping);
     }
