@@ -49,7 +49,8 @@ public class FamilyController {
 
     @GetMapping("/{id}")
     public String getFamilyById(Model model, @PathVariable int id) {
-        //model.addAttribute("buy", familyService.getFamily(id));
+        model.addAttribute("familyId", id);
+        model.addAttribute("buy", familyService.getFamily(id));
         model.addAttribute("shopping", shoppingService.getAllShopping());
         log.info("getFamilyById");
         return "/family/show";

@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.den.shopping.dto.ShoppingDTO;
 import ru.den.shopping.model.Shopping;
+import ru.den.shopping.service.FamilyService;
 import ru.den.shopping.service.ShoppingService;
 
 import java.time.LocalDateTime;
@@ -20,11 +21,13 @@ import java.time.LocalDateTime;
 public class ShoppingController {
 
     private final ShoppingService shoppingService;
+    private final FamilyService familyService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ShoppingController(ShoppingService shoppingService, ModelMapper modelMapper) {
+    public ShoppingController(ShoppingService shoppingService, FamilyService familyService, ModelMapper modelMapper) {
         this.shoppingService = shoppingService;
+        this.familyService = familyService;
         this.modelMapper = modelMapper;
     }
 
@@ -38,12 +41,12 @@ public class ShoppingController {
     }
 
     @GetMapping("/{id}")
-    public String getShoppingById(Model model, @PathVariable int id) {
+    public String getShoppingById(Model model, @PathVariable Integer id) {
         model.addAttribute("buy", shoppingService.getShopping(id));
+
         log.info("getShoppingById");
         return "/show";
     }
-
 
     //start edit
     @GetMapping("/{id}/edit")
@@ -62,25 +65,30 @@ public class ShoppingController {
             return "/edit";
         Shopping shopping = convertToShopping(shoppingDTO);
         shoppingService.update(id, shopping);
-        return "redirect:/shopping";
+        return "redirect:/family/"+shopping.getOwner().getId();
     }
 
     //start new
     @GetMapping("/new")
-    public String newBook(@ModelAttribute("buy") ShoppingDTO shoppingDTO){
+    public String newBook(Model model, @ModelAttribute("buy") ShoppingDTO shoppingDTO,
+                          @RequestParam(value = "familyId", required = false) Integer familyId) {
+        model.addAttribute("familyId", familyId);
         return "/new";
     }
 
     //after new
     @PostMapping()
     public String create(@ModelAttribute("buy") @Valid ShoppingDTO shoppingDTO,
-                         BindingResult bindingResult) {
+                         BindingResult bindingResult, @RequestParam(value = "familyId", required = false) Integer familyId) {
+
         if (bindingResult.hasErrors()) {
             return "/new";
         }
         Shopping shopping = convertToShopping(shoppingDTO);
+        shopping.setOwner(familyService.getFamily(familyId));
         shoppingService.save(shopping);
-        return "redirect:/shopping";
+        //return "redirect:/shopping";
+        return "redirect:/family/"+shopping.getOwner().getId();
     }
 
     @DeleteMapping ("/{id}")
