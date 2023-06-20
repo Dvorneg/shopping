@@ -8,16 +8,14 @@
 <p th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getStore()}">VALUE</p>
 <!--<p th:text="${person.getId()}">VALUE</p>-->
 
-<!--/*@thymesVar id="buy" type="ru.den.shopping.model.Shopping"*/-->
-<!--<div th:if="${buy.isEmpty()}">
-    <p>Покупки пока не запланированы!</p>
-    <hr/>
-</div>-->
 
-
-<form th:method="GET" th:action="@{/shopping/{id}/edit(id=${buy.getId()})}">
+<!--/*@thymesVar id="familyId" type="java.lang.Integer"*/-->
+<!-- donn't work!
+<form method="GET" th:action="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}">
     <input type="submit" value="Редактировать"/>
-</form>
+</form>-->
+
+<a th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}"> Редактировать </a>
 
 <form th:method="DELETE" th:action="@{/shopping/{id}(id=${buy.getId()})}">
     <input type="submit" value="Удалить"/>

@@ -13,8 +13,10 @@
 
 <div th:each="buy:${shopping}">
     <!--/*@thymesVar id="buy" type="ru.den.shopping.model.Shopping"*/-->
-    <a th:href="@{/shopping/{id}(id=${buy.getId()})}"
+    <!--<a th:href="@{/shopping/{id}(id=${buy.getId()})}"-->
+    <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"
        th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
+
 </div>
 
 <br/>
@@ -22,6 +24,8 @@
 
 <!--/*@thymesVar id="familyId" type="java.lang.Integer"*/-->
 <a th:href="@{/shopping/new(familyId=${familyId})}">Добавить покупку</a>
+<br/>
+<div>Выбрать семью (список)</div>
 <!--@{/people/{id}(id=${person.getId()})}-->
 </body>
 </html>

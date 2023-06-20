@@ -41,29 +41,34 @@ public class ShoppingController {
     }
 
     @GetMapping("/{id}")
-    public String getShoppingById(Model model, @PathVariable Integer id) {
+    public String getShoppingById(Model model, @PathVariable Integer id, @RequestParam(value = "familyId", required = false) Integer familyId) {
         model.addAttribute("buy", shoppingService.getShopping(id));
-
-        log.info("getShoppingById");
-        return "/show";
+        model.addAttribute("familyId", familyId);
+        log.info("getShoppingById, familyId="+ familyId);
+        return "/shopping/show";
     }
 
     //start edit
     @GetMapping("/{id}/edit")
-    public String edit (Model model, @PathVariable("id") int id){
+    public String edit (Model model, @PathVariable("id") int id, @RequestParam(value = "familyId", required = false) Integer familyId){
+
+        model.addAttribute("familyId", familyId);
+        log.info("вернёмся к семье {}", familyId);
         model.addAttribute("buy", shoppingService.getShopping(id));
-        return "/edit";
+        return "/shopping/edit";
     }
 
     //after edit
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("buy") @Valid ShoppingDTO shoppingDTO,
                          BindingResult bindingResult,
-                         @PathVariable("id") int id) {
-        log.info("update");
+                         @PathVariable("id") int id, @RequestParam(value = "familyId", required = false) Integer familyId) {
+
+        log.info("update familyId= {}", familyId);
         if (bindingResult.hasErrors())
             return "/edit";
         Shopping shopping = convertToShopping(shoppingDTO);
+        shopping.setOwner(familyService.getFamily(familyId));
         shoppingService.update(id, shopping);
         return "redirect:/family/"+shopping.getOwner().getId();
     }
@@ -73,7 +78,7 @@ public class ShoppingController {
     public String newBook(Model model, @ModelAttribute("buy") ShoppingDTO shoppingDTO,
                           @RequestParam(value = "familyId", required = false) Integer familyId) {
         model.addAttribute("familyId", familyId);
-        return "/new";
+        return "/shopping/new";
     }
 
     //after new
@@ -82,7 +87,7 @@ public class ShoppingController {
                          BindingResult bindingResult, @RequestParam(value = "familyId", required = false) Integer familyId) {
 
         if (bindingResult.hasErrors()) {
-            return "/new";
+            return "/shopping/new";
         }
         Shopping shopping = convertToShopping(shoppingDTO);
         shopping.setOwner(familyService.getFamily(familyId));
@@ -93,8 +98,9 @@ public class ShoppingController {
 
     @DeleteMapping ("/{id}")
     public String delete(@PathVariable("id") int id) {
+        Integer familyId = shoppingService.getShopping(id).getOwner().getId();
         shoppingService.delete(id);
-        return "redirect:/shopping";
+        return "redirect:/family/"+familyId;
     }
 
     private Shopping convertToShopping(ShoppingDTO shoppingDTO) {

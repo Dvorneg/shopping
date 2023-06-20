@@ -6,7 +6,13 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/shopping/{id}(id=${buy.getId()})}" th:object="${buy}">
+<!--<a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"-->
+
+
+<!--<a th:href="@{/order/details(id=3,action='show_all')}">-->
+
+<!--<form th:method="PATCH" th:action="@{/shopping/{id}(id=${buy.getId()})}" th:object="${buy}">-->
+<form th:method="PATCH" th:action="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId})}" th:object="${buy}">
     <label for="name">Введите имя:</label>
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
@@ -23,7 +29,8 @@
     <br/>
 
 
-    <input type="submit" value="Редактировать!"/>
+    <input type="submit" value="Сохранить!"/>
+    <input  type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
 </form>
 
 </body>
