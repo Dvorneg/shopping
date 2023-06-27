@@ -55,7 +55,9 @@
 <!--/*@thymesVar id="familyId" type="java.lang.Integer"*/-->
 <a th:href="@{/shopping/new(familyId=${familyId})}">Добавить покупку</a>
 <br/>
-<div>Выбрать семью (список)</div>
+<div>
+    <a th:href="@{/family}">Выбрать семью (список)</a>
+</div>
 <!--@{/people/{id}(id=${person.getId()})}-->
 </body>
 </html>

@@ -32,8 +32,9 @@ public class ShoppingController {
     }
 
     @GetMapping()
-    public String getAll(Model model,
-                        @RequestParam(value = "sort_by_data", required = false) boolean sort_by_data) {
+    public String getAll(Model model
+// ,@RequestParam(value = "sort_by_data", required = false) boolean sort_by_data
+    ) {
         model.addAttribute("shopping", shoppingService.getAllShopping());
         log.info("getAll");
         return "/shopping";

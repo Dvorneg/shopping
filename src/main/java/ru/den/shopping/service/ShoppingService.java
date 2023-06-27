@@ -2,6 +2,7 @@ package ru.den.shopping.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.den.shopping.model.Family;
 import ru.den.shopping.model.Shopping;
 import ru.den.shopping.repository.ShoppingRepository;
 import ru.den.shopping.util.ShoppingException;
@@ -21,6 +22,11 @@ public class ShoppingService {
     public Shopping getShopping(Integer shoppingId)
     {
         return repository.findById(shoppingId).orElseThrow(() -> new ShoppingException("Элемент не найден!"));
+    }
+
+    public List<Shopping> getAllShoppingByOwner(Family family)
+    {
+        return repository.getAllByOwner(family);
     }
 
     public List<Shopping> getAllShopping()

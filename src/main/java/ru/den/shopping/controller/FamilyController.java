@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.den.shopping.model.Family;
 import ru.den.shopping.model.User;
 import ru.den.shopping.service.FamilyService;
 import ru.den.shopping.service.ShoppingService;
@@ -49,10 +50,11 @@ public class FamilyController {
 
     @GetMapping("/{id}")
     public String getFamilyById(Model model, @PathVariable int id) {
+        Family family = familyService.getFamily(id);
         model.addAttribute("familyId", id);
-        model.addAttribute("buy", familyService.getFamily(id));
-        model.addAttribute("shopping", shoppingService.getAllShopping());
-        log.info("getFamilyById");
+        model.addAttribute("buy", family);
+        model.addAttribute("shopping", shoppingService.getAllShoppingByOwner(family));
+        log.info("get all shopping by Family");
         return "/family/show";
     }
 
