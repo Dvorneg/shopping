@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Покупки</title>
+   <!-- <base href="${pageContext.request.contextPath}/"/>-->
+    <!--<link rel="stylesheet" href="/resources/static/main.css">-->
+    <!--<link th:href="@{/static/main.css}" href="../static/main.css" rel="stylesheet" type="text/css">-->
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
@@ -11,13 +15,39 @@
     <hr/>
 </div>
 
-<div th:each="buy:${shopping}">
-    <!--/*@thymesVar id="buy" type="ru.den.shopping.model.Shopping"*/-->
-    <!--<a th:href="@{/shopping/{id}(id=${buy.getId()})}"-->
+<table class="table">
+    <tr>
+        <th>Покупка </th>
+        <th>Дата </th>
+        <th>Вес </th>
+        <th>Магазин </th>
+        <th>Изменить</th>
+        <th>Удалить </th>
+    </tr>
+    <!--<tr th:each="buy : ${shopping}" th:class="${prodStat.odd}? 'odd'">-->
+    <tr th:each="buy : ${shopping} ">
+        <td th:text="${buy.getName()}">Onions</td>
+        <td th:text="${buy.getData()}">2.41</td>
+        <td th:text="${buy.getHowMany()}">yes</td>
+        <td th:text="${buy.getStore()}"> </td>
+
+        <!--<a th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}"> Редактировать </a>-->
+        <!--<td th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}"> <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#9998; </a> </td>
+        <td th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"> <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#10006; </a> </td>-->
+
+        <td> <a th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}" class="no-underline-style"> &#9998; </a> </td>
+        <td> <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#10006; </a> </td>
+
+
+
+    </tr>
+</table>
+
+<!--<div th:each="buy:${shopping}">
+    &lt;!&ndash;/*@thymesVar id="buy" type="ru.den.shopping.model.Shopping"*/&ndash;&gt;
     <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"
        th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
-
-</div>
+</div>-->
 
 <br/>
 <hr/>

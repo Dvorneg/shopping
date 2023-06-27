@@ -15,10 +15,9 @@
     <input type="submit" value="Редактировать"/>
 </form>-->
 
-<a th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}"> Редактировать </a>
-
 <form th:method="DELETE" th:action="@{/shopping/{id}(id=${buy.getId()})}">
     <input type="submit" value="Удалить"/>
+    <input  type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
 </form>
 </body>
 </html>
