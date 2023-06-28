@@ -11,19 +11,24 @@
     <hr/>
 </div>
 
-<!--/*@thymesVar id="famillies" type="java.util.List"*/-->
-<div th:if="${famillies.size()>1}">
+<!--/*@thymesVar id="families" type="java.util.List"*/-->
+<div th:if="${families.size()>1}">
     <span>У вас несколько списков (семей) </span>
    <!-- <form th:method="PATCH" th:action="@{/family/{id}/assign(id=${family.getId()})}">-->
     <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
     <form th:method="GET" th:action="@{/family}">
         <label for="family">Выберите семью:</label>
         <select th:object="${user}" th:field="*{id}" id="family">
-            <option th:each="family : ${famillies}" th:value="${family.getId()}" th:text="${family.getName()}">
+            <option th:each="family : ${families}" th:value="${family.getId()}" th:text="${family.getName()}">
             </option>
         </select>
         <input type="submit" value="Выбрать"/>
     </form>
+
+    <a href="/family/new">Добавить список покупок</a>
+
+
+
 </div>
 
 <hr/>

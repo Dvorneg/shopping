@@ -28,7 +28,11 @@ public class FamilyService {
     public Family getFamily(Integer familyId)
     {
         return familyRepository.findById(familyId).orElseThrow(() -> new ShoppingException("Элемент не найден!"));
-        //todo ShoppingException->familyException
     }
+    @Transactional
+    public void save(Family family){
+        familyRepository.save(family);
+    }
+
 
 }
