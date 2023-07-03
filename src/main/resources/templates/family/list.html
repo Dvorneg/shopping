@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Покупки</title>
-    <!-- <base href="${pageContext.request.contextPath}/"/>-->
-    <!--<link rel="stylesheet" href="/resources/static/main.css">-->
-    <!--<link th:href="@{/static/main.css}" href="../static/main.css" rel="stylesheet" type="text/css">-->
     <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 
+<!--/*@thymesVar id="families" type="java.util.List"*/-->
 <div th:if="${families.isEmpty()}">
     <p>Списки пока не созданы!</p>
     <hr/>
@@ -21,15 +19,11 @@
         <th>Изменить</th>
         <th>Удалить </th>
     </tr>
-    <!--<tr th:each="buy : ${shopping}" th:class="${prodStat.odd}? 'odd'">-->
+    <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
     <tr th:each="family : ${families} ">
         <td th:text="${family.getName()}">Onions</td>
-        <!--<a th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}"> Редактировать </a>-->
-        <!--<td th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}"> <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#9998; </a> </td>
-        <td th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"> <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#10006; </a> </td>-->
         <td> <a th:href="@{/family/{id}/edit(id=${family.getId()})}" class="no-underline-style"> &#9998; </a> </td>
         <td> <a th:href="@{/family/{id}(familyId=${family.getId()}) }" class="no-underline-style"> &#10006; </a> </td>
-
     </tr>
 </table>
 
@@ -39,6 +33,6 @@
 <div>
     <a th:href="@{/family}">Выбрать семью (список)</a>
 </div>
-<!--@{/people/{id}(id=${person.getId()})}-->
+
 </body>
 </html>

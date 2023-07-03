@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+
 <head>
     <title>Update shopping</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -7,14 +8,17 @@
 <body>
 
 <!--<a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"-->
-
-
 <!--<a th:href="@{/order/details(id=3,action='show_all')}">-->
 
 <!--<form th:method="PATCH" th:action="@{/shopping/{id}(id=${buy.getId()})}" th:object="${buy}">-->
+<!--/*@thymesVar id="buy" type="ru.den.shopping.model.Shopping"*/-->
+<!--/*@thymesVar id="familyId" type="java.lang.Integer"*/-->
 <form th:method="PATCH" th:action="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId})}" th:object="${buy}">
     <label for="name">Введите имя:</label>
     <input type="text" th:field="*{name}" id="name"/>
+
+    <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+    <!--/*@thymesVar id="hasErrors" type="java.lang.Boolean"*/-->
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
 
@@ -30,7 +34,7 @@
 
 
     <input type="submit" value="Сохранить!"/>
-    <input  type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
+    <input type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
 </form>
 
 </body>

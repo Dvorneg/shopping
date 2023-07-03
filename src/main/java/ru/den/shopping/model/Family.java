@@ -38,7 +38,8 @@ public class Family {
         this.id = id;
         this.name = name;
     }
-/*   @OneToMany(mappedBy = "owner")
+
+    /*   @OneToMany(mappedBy = "owner")
     private List<Shopping> shopping;*/
 
 

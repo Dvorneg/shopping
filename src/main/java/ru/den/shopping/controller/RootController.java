@@ -14,7 +14,6 @@ public class RootController {
     public String getAll() {
         log.info("RootController");
         return "redirect:/family";
-        //return "books/index";
     }
 
 }

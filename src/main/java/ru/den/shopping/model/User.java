@@ -1,6 +1,5 @@
 package ru.den.shopping.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-//@Table(name = "shopping", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meal_unique_user_datetime_idx")})
 @Table(name = "users")
 @Getter
 @Setter
@@ -31,7 +29,6 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_family", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "family_id"))
     private List<Family> families;
-
 
     public User(Integer id, String name) {
         this.id = id;

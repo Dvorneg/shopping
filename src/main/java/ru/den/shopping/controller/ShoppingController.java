@@ -32,26 +32,23 @@ public class ShoppingController {
     }
 
     @GetMapping()
-    public String getAll(Model model
-// ,@RequestParam(value = "sort_by_data", required = false) boolean sort_by_data
-    ) {
+    public String getAll(Model model) {
         model.addAttribute("shopping", shoppingService.getAllShopping());
         log.info("getAll");
         return "/shopping";
-        //return "books/index";
     }
 
     @GetMapping("/{id}")
     public String getShoppingById(Model model, @PathVariable Integer id, @RequestParam(value = "familyId", required = false) Integer familyId) {
         model.addAttribute("buy", shoppingService.getShopping(id));
         model.addAttribute("familyId", familyId);
-        log.info("getShoppingById, familyId="+ familyId);
+        log.info("getShoppingById, familyId=" + familyId);
         return "/shopping/show";
     }
 
     //start edit
     @GetMapping("/{id}/edit")
-    public String edit (Model model, @PathVariable("id") int id, @RequestParam(value = "familyId", required = false) Integer familyId){
+    public String edit(Model model, @PathVariable("id") int id, @RequestParam(value = "familyId", required = false) Integer familyId) {
 
         model.addAttribute("familyId", familyId);
         log.info("вернёмся к семье {}", familyId);
@@ -71,7 +68,7 @@ public class ShoppingController {
         Shopping shopping = convertToShopping(shoppingDTO);
         shopping.setOwner(familyService.getFamily(familyId));
         shoppingService.update(id, shopping);
-        return "redirect:/family/"+shopping.getOwner().getId();
+        return "redirect:/family/" + shopping.getOwner().getId();
     }
 
     //start new
@@ -93,20 +90,18 @@ public class ShoppingController {
         Shopping shopping = convertToShopping(shoppingDTO);
         shopping.setOwner(familyService.getFamily(familyId));
         shoppingService.save(shopping);
-        //return "redirect:/shopping";
-        return "redirect:/family/"+shopping.getOwner().getId();
+        return "redirect:/family/" + shopping.getOwner().getId();
     }
 
-    @DeleteMapping ("/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         Integer familyId = shoppingService.getShopping(id).getOwner().getId();
         shoppingService.delete(id);
-        return "redirect:/family/"+familyId;
+        return "redirect:/family/" + familyId;
     }
 
     private Shopping convertToShopping(ShoppingDTO shoppingDTO) {
         Shopping shopping = modelMapper.map(shoppingDTO, Shopping.class);
-            //String Sensor find in Repository
         shopping.setData(LocalDateTime.now());
         return shopping;
     }

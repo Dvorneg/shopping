@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Покупки</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
 
+<!--/*@thymesVar id="shopping" type="java.util.List"*/-->
 <div th:if="${shopping.isEmpty()}">
     <p>Покупки пока не запланированы!</p>
     <hr/>
@@ -14,20 +15,17 @@
 <!--/*@thymesVar id="families" type="java.util.List"*/-->
 <div th:if="${families.size()>1}">
     <span>У вас несколько списков (семей) </span>
-   <!-- <form th:method="PATCH" th:action="@{/family/{id}/assign(id=${family.getId()})}">-->
-    <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
+
     <form th:method="GET" th:action="@{/family}">
         <label for="family">Выберите список покупок:</label>
+        <!--/*@thymesVar id="user" type="ru.den.shopping.model.User"*/-->
+        <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
         <select th:object="${user}" th:field="*{id}" id="family">
             <option th:each="family : ${families}" th:value="${family.getId()}" th:text="${family.getName()}">
             </option>
         </select>
         <input type="submit" value="Выбрать"/>
     </form>
-
-<!--    <form th:method="GET" th:action="@{/family}">
-        <input type="submit" value="Выбрать"/>
-    </form>-->
 
     <a href="/family/new">Добавить список покупок</a>
     <hr/>
@@ -37,17 +35,6 @@
 </div>
 
 <hr/>
-
-<!--/*@thymesVar id="buy" type="ru.den.shopping.dto.ShoppingDTO"*/-->
-<form th:object="${show}">
-
-</form>
-
-<!--<div th:each="buy:${shopping}">
-    <a th:href="@{/shopping/{id}(id=${buy.getId()})}"
-       th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
-</div>-->
-
 
 </body>
 </html>

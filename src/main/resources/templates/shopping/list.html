@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Покупки</title>
    <!-- <base href="${pageContext.request.contextPath}/"/>-->
@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-
+<!--/*@thymesVar id="shopping" type="java.util.List"*/-->
 <div th:if="${shopping.isEmpty()}">
     <p>Покупки пока не запланированы!</p>
     <hr/>
@@ -25,6 +25,7 @@
         <th>Удалить </th>
     </tr>
     <!--<tr th:each="buy : ${shopping}" th:class="${prodStat.odd}? 'odd'">-->
+    <!--/*@thymesVar id="shopping" type="ru.den.shopping.model.Shopping"*/-->
     <tr th:each="buy : ${shopping} ">
         <td th:text="${buy.getName()}">Onions</td>
         <td th:text="${buy.getData()}">2.41</td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Новый список покупок</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,6 +11,7 @@
     <p>Введите название</p>
     <label for="name">Новый список покупок:</label>
     <input type="text" th:field="*{name}" id="name"/>
+    <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Name error</div>
     <br/>
 

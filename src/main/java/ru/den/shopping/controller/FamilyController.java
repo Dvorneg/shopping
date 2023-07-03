@@ -31,14 +31,10 @@ public class FamilyController {
     }
 
     @GetMapping()
-    public String getAll(Model model,
-                         @RequestParam(value = "sort_by_data", required = false) boolean sort_by_data,
-                        @RequestParam(value = "id", required = false) Integer id) {
+    public String getAll(Model model, @RequestParam(value = "id", required = false) Integer id) {
 
-        if(id!= null)
-        {
-            //refactoring
-            return "redirect:/family/"+id;
+        if (id != null) {
+            return "redirect:/family/" + id;
         }
 
         model.addAttribute("families", familyService.getAllFamily());
@@ -55,32 +51,26 @@ public class FamilyController {
         model.addAttribute("buy", family);
         model.addAttribute("shopping", shoppingService.getAllShoppingByOwner(family));
         log.info("get all shopping by family");
-        //return "/family/show";
         return "/shopping/list";
     }
 
     //start new
     @GetMapping("/new")
-    public String newFamily(Model model, @ModelAttribute("family") FamilyDTO familyDTO
-    //                      ,@RequestParam(value = "familyId", required = false) Integer familyId
-    ) {
-        //model.addAttribute("familyId", familyId);
+    public String newFamily(
+            @ModelAttribute("family") FamilyDTO familyDTO) {
         log.info("add new family");
         return "/family/new";
     }
 
     //after new
     @PostMapping()
-    public String create(@ModelAttribute("buy") @Valid FamilyDTO familyDTO,
-                         BindingResult bindingResult, @RequestParam(value = "familyId", required = false) Integer familyId) {
-
+    public String create(@ModelAttribute("buy") @Valid FamilyDTO familyDTO, BindingResult bindingResult)
+    {
         if (bindingResult.hasErrors()) {
             return "/shopping/new";
         }
         Family family = convertToFamily(familyDTO);
-        //family.setOwner(familyService.getFamily(familyId));
         familyService.save(family);
-        //return "redirect:/shopping";
         return "redirect:/family";
     }
 
@@ -94,27 +84,22 @@ public class FamilyController {
     }
 
     //request  delete
-    @DeleteMapping ("/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        //Integer familyId = familyService.getFamily(id);
-        log.info("start deleting id="+id);
+        log.info("start deleting id=" + id);
         shoppingService.delete(id);
         return "redirect:/family/";
     }
 
     @GetMapping("/list")
     public String list(Model model) {
-        //Integer familyId = familyService.getFamily(id);
         model.addAttribute("families", familyService.getAllFamily());
         log.info("/family/list ");
-        //shoppingService.delete(id);
         return "/family/list";
     }
 
     private Family convertToFamily(FamilyDTO familyDTO) {
-        Family family = modelMapper.map(familyDTO, Family.class);
-        //family.setData(LocalDateTime.now());
-        return family;
+        return modelMapper.map(familyDTO, Family.class);
     }
 
 }

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 //@Table(name = "shopping", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meal_unique_user_datetime_idx")})
@@ -42,7 +43,8 @@ public class Shopping {
     @Size(min = 2, max = 100)
     private String store;
 
-    //private String howMach;
+    //private String howMach;?
+
     @ManyToOne
     @JoinColumn(name = "family_id", referencedColumnName = "id")
     private Family owner;
@@ -56,9 +58,9 @@ public class Shopping {
         Shopping shopping = (Shopping) o;
 
         if (!name.equals(shopping.name)) return false;
-        if (data != null ? !data.equals(shopping.data) : shopping.data != null) return false;
-        if (howMany != null ? !howMany.equals(shopping.howMany) : shopping.howMany != null) return false;
-        return store != null ? store.equals(shopping.store) : shopping.store == null;
+        if (!Objects.equals(data, shopping.data)) return false;
+        if (!Objects.equals(howMany, shopping.howMany)) return false;
+        return Objects.equals(store, shopping.store);
     }
 
     @Override

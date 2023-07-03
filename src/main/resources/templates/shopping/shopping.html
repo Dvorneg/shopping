@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Все покупки</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-<!--/*@thymesVar id="shopping" type="ru.den.shopping.dto.ShoppingDTO"*/-->
+<!--/*@thymesVar id="shopping" type="java.util.List"*/-->
+<!--/*@thymesVar id="buy" type="ru.den.shopping.model.Shopping"*/-->
 <div th:each="buy:${shopping}">
     <a th:href="@{/shopping/{id}(id=${buy.getId()})}"
        th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
