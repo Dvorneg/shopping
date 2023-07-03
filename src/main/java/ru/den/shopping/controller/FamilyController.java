@@ -8,14 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.den.shopping.dto.FamilyDTO;
-import ru.den.shopping.dto.ShoppingDTO;
 import ru.den.shopping.model.Family;
-import ru.den.shopping.model.Shopping;
 import ru.den.shopping.model.User;
 import ru.den.shopping.service.FamilyService;
 import ru.den.shopping.service.ShoppingService;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 
 @Slf4j
@@ -58,7 +55,8 @@ public class FamilyController {
         model.addAttribute("buy", family);
         model.addAttribute("shopping", shoppingService.getAllShoppingByOwner(family));
         log.info("get all shopping by family");
-        return "/family/show";
+        //return "/family/show";
+        return "/shopping/list";
     }
 
     //start new
@@ -84,6 +82,33 @@ public class FamilyController {
         familyService.save(family);
         //return "redirect:/shopping";
         return "redirect:/family";
+    }
+
+    //page delete
+    @GetMapping("/delete")
+    public String deleteFamily(Model model, @ModelAttribute("family") FamilyDTO familyDTO) {
+        model.addAttribute("families", familyService.getAllFamily());
+        model.addAttribute("user", new User(1, "Вася", Collections.emptyList()));
+        log.info("start deleting");
+        return "/family/delete";
+    }
+
+    //request  delete
+    @DeleteMapping ("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        //Integer familyId = familyService.getFamily(id);
+        log.info("start deleting id="+id);
+        shoppingService.delete(id);
+        return "redirect:/family/";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model) {
+        //Integer familyId = familyService.getFamily(id);
+        model.addAttribute("families", familyService.getAllFamily());
+        log.info("/family/list ");
+        //shoppingService.delete(id);
+        return "/family/list";
     }
 
     private Family convertToFamily(FamilyDTO familyDTO) {

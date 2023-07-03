@@ -8,7 +8,8 @@
 
 <!--/*@thymesVar id="family" type="ru.den.shopping.dto.FamilyDTO"*/-->
 <form th:method="POST" th:action="@{/family}" th:object="${family}">
-    <label for="name">Введите название Новый список покупок:</label>
+    <p>Введите название</p>
+    <label for="name">Новый список покупок:</label>
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Name error</div>
     <br/>

@@ -34,5 +34,10 @@ public class FamilyService {
         familyRepository.save(family);
     }
 
+    @Transactional
+    public void delete(int id){
+        familyRepository.deleteById(id);
+    }
+
 
 }

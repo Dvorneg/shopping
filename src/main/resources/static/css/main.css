@@ -3,6 +3,16 @@ html {
     min-height: 100%;
 }
 
+.table-small{
+    border: 1px solid #eee;
+    table-layout: fixed;
+    width: 30%;
+    color: darkblue;
+    /*align-items: center;*/
+    margin: auto; /*center screen*/
+    text-align: center;/*center text*/
+}
+
 .table{
     border: 1px solid #eee;
     table-layout: fixed;
