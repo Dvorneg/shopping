@@ -23,7 +23,7 @@
     <tr th:each="family : ${families} ">
         <td th:text="${family.getName()}">Onions</td>
         <td> <a th:href="@{/family/{id}/edit(id=${family.getId()})}" class="no-underline-style"> &#9998; </a> </td>
-        <td> <a th:href="@{/family/{id}(familyId=${family.getId()}) }" class="no-underline-style"> &#10006; </a> </td>
+        <td> <a th:href="@{/family/{id}/delete(id=${family.getId()}) }" class="no-underline-style"> &#10006; </a> </td>
     </tr>
 </table>
 

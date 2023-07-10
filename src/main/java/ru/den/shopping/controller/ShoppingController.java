@@ -49,8 +49,7 @@ public class ShoppingController {
     //start edit
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id, @RequestParam(value = "familyId", required = false) Integer familyId) {
-
-        model.addAttribute("familyId", familyId);
+        //model.addAttribute("familyId", familyId);
         log.info("вернёмся к семье {}", familyId);
         model.addAttribute("buy", shoppingService.getShopping(id));
         return "/shopping/edit";

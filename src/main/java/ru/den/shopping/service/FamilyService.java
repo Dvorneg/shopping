@@ -10,7 +10,7 @@ import ru.den.shopping.util.ShoppingException;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class FamilyService {
 
     private final FamilyRepository familyRepository;
@@ -37,6 +37,12 @@ public class FamilyService {
     @Transactional
     public void delete(int id){
         familyRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void update(int id, Family updatedFamily){
+        updatedFamily.setId(id);
+        familyRepository.save(updatedFamily);
     }
 
 

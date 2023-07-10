@@ -10,7 +10,7 @@ import ru.den.shopping.util.ShoppingException;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class ShoppingService {
 
     private final ShoppingRepository repository;

@@ -74,11 +74,32 @@ public class FamilyController {
         return "redirect:/family";
     }
 
+    //start edit
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        log.info("Редактирование семьи {}", id);
+        model.addAttribute("family", familyService.getFamily(id));
+        return "/family/edit";
+    }
+
+    //after edit
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("buy") @Valid Family family,
+                         BindingResult bindingResult, @PathVariable("id") Integer id) {
+
+        log.info("update familyId= {}", id);
+        if (bindingResult.hasErrors())
+            return "/edit";
+
+        familyService.update(id, family);
+        return "redirect:/family/list";
+    }
+
+
     //page delete
-    @GetMapping("/delete")
-    public String deleteFamily(Model model, @ModelAttribute("family") FamilyDTO familyDTO) {
-        model.addAttribute("families", familyService.getAllFamily());
-        model.addAttribute("user", new User(1, "Вася", Collections.emptyList()));
+    @GetMapping("/{id}/delete")
+    public String deleteFamily(Model model, @ModelAttribute("family") FamilyDTO familyDTO,@PathVariable("id") Integer id) {
+        model.addAttribute("family", familyService.getFamily(id));
         log.info("start deleting");
         return "/family/delete";
     }
@@ -87,10 +108,11 @@ public class FamilyController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         log.info("start deleting id=" + id);
-        shoppingService.delete(id);
-        return "redirect:/family/";
+        familyService.delete(id);
+        return "redirect:/family/list";
     }
 
+    //list of family
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("families", familyService.getAllFamily());

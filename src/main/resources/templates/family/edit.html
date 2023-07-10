@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <title>Update family</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
+<form th:method="PATCH" th:action="@{/family/{id}(id=${family.getId()})}" th:object="${family}">
+    <label for="name">Введите название:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br/>
+
+    <input type="submit" value="Сохранить!"/>
+    <input type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
+</form>
+
+</body>
+</html>
