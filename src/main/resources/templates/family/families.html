@@ -6,32 +6,34 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="shopping" type="java.util.List"*/-->
+<!--/*@thymesVar id="shopping" type="java.util.List<ru.den.shopping.model.Shopping>"*/-->
 <div th:if="${shopping.isEmpty()}">
     <p>Покупки пока не запланированы!</p>
     <hr/>
 </div>
 
-<!--/*@thymesVar id="families" type="java.util.List"*/-->
+<!--/*@thymesVar id="families" type="java.util.List<ru.den.shopping.model.Family>"*/-->
 <div th:if="${families.size()>1}">
-    <span>У вас несколько списков (семей) </span>
+    <span>У вас несколько списков </span>
 
     <form th:method="GET" th:action="@{/family}">
         <label for="family">Выберите список покупок:</label>
         <!--/*@thymesVar id="user" type="ru.den.shopping.model.User"*/-->
-        <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
         <select th:object="${user}" th:field="*{id}" id="family">
+            <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
             <option th:each="family : ${families}" th:value="${family.getId()}" th:text="${family.getName()}">
             </option>
         </select>
         <input type="submit" value="Выбрать"/>
     </form>
 
-    <a href="/family/new">Добавить список покупок</a>
+    <a th:href="/family/new">Добавить список покупок</a>
     <hr/>
     <a th:href="@{/family/list}">меню редактирования списков покупок...</a>
+</div>
 
-
+<div th:if="${families.size()==1}">
+    Ошибка, контроллер должен перекуинуть на http://localhost:8081/family/id
 </div>
 
 <hr/>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title>Покупки</title>
     <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<!--/*@thymesVar id="families" type="java.util.List"*/-->
+<!--/*@thymesVar id="families" type="java.util.List<ru.den.shopping.model.Family>"*/-->
 <div th:if="${families.isEmpty()}">
     <p>Списки пока не созданы!</p>
     <hr/>
@@ -30,8 +30,13 @@
 <hr/>
 <br/>
 
-<div>
-    <a th:href="@{/family}">Выбрать семью (список)</a>
+<div th:if="${families.size()>1}">
+    <a th:href="@{/family}">Выбрать список покупок</a>
+</div>
+<div th:if="${families.size()==1}">
+    <a th:href="@{/family/new}">Добавить список покупок</a>
+    <br/>
+    <a th:href="@{/family}">Перейти к покупкам</a>
 </div>
 
 </body>

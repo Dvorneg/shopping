@@ -14,6 +14,7 @@ import ru.den.shopping.service.FamilyService;
 import ru.den.shopping.service.ShoppingService;
 
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -33,11 +34,16 @@ public class FamilyController {
     @GetMapping()
     public String getAll(Model model, @RequestParam(value = "id", required = false) Integer id) {
 
+        List<Family> families= familyService.getAllFamily();
+
         if (id != null) {
             return "redirect:/family/" + id;
         }
 
-        model.addAttribute("families", familyService.getAllFamily());
+        if (families.size()==1)
+            return "redirect:/family/"+families.get(0).getId();
+
+        model.addAttribute("families", families);
         model.addAttribute("shopping", shoppingService.getAllShopping());
         model.addAttribute("user", new User(1, "Вася", Collections.emptyList()));
         log.info("FamilyController getAll");
@@ -50,6 +56,7 @@ public class FamilyController {
         model.addAttribute("familyId", id);
         model.addAttribute("buy", family);
         model.addAttribute("shopping", shoppingService.getAllShoppingByOwner(family));
+        model.addAttribute("familiesSize", familyService.getAllFamily().size());
         log.info("get all shopping by family");
         return "/shopping/list";
     }

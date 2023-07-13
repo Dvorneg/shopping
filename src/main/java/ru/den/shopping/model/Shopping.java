@@ -73,4 +73,5 @@ public class Shopping {
         result = 31 * result + (store != null ? store.hashCode() : 0);
         return result;
     }
+
 }

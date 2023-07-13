@@ -8,7 +8,7 @@
 
 <!--/*@thymesVar id="family" type="ru.den.shopping.dto.FamilyDTO"*/-->
 <form th:method="POST" th:action="@{/family}" th:object="${family}">
-    <p>Введите название</p>
+    <p>Введите название:</p>
     <label for="name">Новый список покупок:</label>
     <input type="text" th:field="*{name}" id="name"/>
     <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/-->

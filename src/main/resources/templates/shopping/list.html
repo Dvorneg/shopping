@@ -50,15 +50,21 @@
        th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
 </div>-->
 
-<br/>
-<hr/>
-
-<!--/*@thymesVar id="familyId" type="java.lang.Integer"*/-->
 <a th:href="@{/shopping/new(familyId=${familyId})}">Добавить покупку</a>
 <br/>
-<div>
-    <a th:href="@{/family}">Выбрать семью (список)</a>
+<hr/>
+<br/>
+
+<!--/*@thymesVar id="familyId" type="java.lang.Integer"*/-->
+<!--/*@thymesVar id="familiesSize" type="java.lang.Integer"*/-->
+<div th:if="${familiesSize==1}">
+    <a th:href="@{/family/new}">Добавить список покупок</a>
 </div>
+
+<div th:if="${familiesSize>1}">
+    <a th:href="@{/family}">Выбрать список покупок</a>
+</div>
+
 <!--@{/people/{id}(id=${person.getId()})}-->
 </body>
 </html>

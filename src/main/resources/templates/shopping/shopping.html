@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+
 <head>
     <title>Все покупки</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<!--/*@thymesVar id="shopping" type="java.util.List"*/-->
+<div>
+    <!--/*@thymesVar id="shopping" type="java.util.List<ru.den.shopping.model.Shopping>"*/-->
+</div>
 <!--/*@thymesVar id="buy" type="ru.den.shopping.model.Shopping"*/-->
-<div th:each="buy:${shopping}">
+<!--/*@thymesVar id="shopping" type="ru.den.shopping.model.Shopping"*/-->
+<div th:each="buy: ${shopping}">
     <a th:href="@{/shopping/{id}(id=${buy.getId()})}"
        th:text="${buy.getName() +', '+ buy.getData()+', '+ buy.getHowMany()+', '+ buy.getStore()}">user</a>
 </div>
 
 <br/>
 
-<a href="/shopping/new">Добавить покупку</a>
+<a  th:href="/shopping/new">Добавить покупку</a>
 
 <br/>
 <hr/>
-<a href="/shopping">Список покупок</a>
+<a  th:href="/shopping">Список покупок</a>
 
 
 </body>
