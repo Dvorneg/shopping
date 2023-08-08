@@ -23,11 +23,6 @@ public class ProfileController {
         return "/family/list";
     }
 
-    @GetMapping("/logout")
-    // @ResponseBody
-    public String logout() {
-        log.info("logout страница");
-        return "/user/logout";
-    }
+
 
 }

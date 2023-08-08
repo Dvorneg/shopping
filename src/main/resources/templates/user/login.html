@@ -6,8 +6,8 @@
 </head>
 <body>
 
-<!--<form name="f" method="post" action="/process_login">-->
-<form name="f" method="post" action="spring_security_check">
+
+<form name="f" method="post" action="/process_login">
   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
   <label for="username">Введите имя пользователя:</label>

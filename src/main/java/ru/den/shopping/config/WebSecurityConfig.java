@@ -34,6 +34,8 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+
+
         return httpSecurity
                 //.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
@@ -46,8 +48,9 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin()
-                //.loginPage("/profile/login")  .permitAll()
-                .loginProcessingUrl("/spring_security_check")
+                .loginPage("/profile/login")  .permitAll()
+                .loginProcessingUrl("/process_login")
+                .defaultSuccessUrl("/family", true)
                 .failureUrl("/login?error=true")//
                 .and().logout().permitAll()
                 .and().build();

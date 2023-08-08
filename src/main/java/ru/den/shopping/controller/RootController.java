@@ -16,4 +16,11 @@ public class RootController {
         return "redirect:/family";
     }
 
+    @GetMapping("/logout")
+    // @ResponseBody
+    public String logout() {
+        log.info("logout страница");
+        return "/user/logout";
+    }
+
 }
