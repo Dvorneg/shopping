@@ -12,8 +12,11 @@ SELECT nextVal('"shopping_id_seq"');  /* next value sequence or SELECT setval('t
 SELECT nextVal('"shopping_id_seq"');  /* next value sequence or SELECT setval('the_primary_key_sequence', (SELECT MAX(the_primary_key) FROM the_table)+1);*/
 SELECT nextVal('"shopping_id_seq"');  /* next value sequence or SELECT setval('the_primary_key_sequence', (SELECT MAX(the_primary_key) FROM the_table)+1);*/
 
-INSERT INTO users (id, name) VALUES
-(5, 'Коля');
+INSERT INTO users (id, name, password) VALUES
+(5, '123', '{noop}123');
 
 INSERT INTO user_family(family_id, user_id) VALUES
 (2,5);
+
+insert into user_role (user_id, role) VALUES
+(5, 'USER');

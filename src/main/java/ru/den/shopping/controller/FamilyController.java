@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.den.shopping.dto.FamilyDTO;
 import ru.den.shopping.model.Family;
+import ru.den.shopping.model.Role;
 import ru.den.shopping.model.User;
 import ru.den.shopping.service.FamilyService;
 import ru.den.shopping.service.ShoppingService;
@@ -45,7 +46,7 @@ public class FamilyController {
 
         model.addAttribute("families", families);
         model.addAttribute("shopping", shoppingService.getAllShopping());
-        model.addAttribute("user", new User(1, "Вася", Collections.emptyList()));
+        model.addAttribute("user", new User(1, "Вася", Collections.emptyList(), "123", Collections.singleton(Role.USER)));
         log.info("FamilyController getAll");
         return "/family/families";
     }
