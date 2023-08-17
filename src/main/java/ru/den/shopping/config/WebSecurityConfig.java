@@ -1,5 +1,6 @@
 package ru.den.shopping.config;
 
+import jakarta.servlet.DispatcherType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,48 +32,33 @@ public class WebSecurityConfig {
                 .passwordEncoder(PASSWORD_ENCODER);
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-
         return httpSecurity
                 //.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests((auth) -> auth
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                         .requestMatchers("/resources/css/**").permitAll()
                         .requestMatchers("/resources/images/**").permitAll()
-                        .requestMatchers("/profile/register","/webjars/**").permitAll()
-                        .requestMatchers("/about","/about").permitAll()
+                        .requestMatchers("/profile/register", "/webjars/**").permitAll()
+                        .requestMatchers("/about", "/about").permitAll()
                         .requestMatchers("/WEB-INF/lib/**").permitAll()
                         .requestMatchers("/**").authenticated()
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated())
+
+                //.httpBasic(Customizer.withDefaults())
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/profile/login").permitAll()
+                        .loginProcessingUrl("/process_login")
+                        .defaultSuccessUrl("/family", true)
+                        .failureUrl("/profile/login?error=true")//
                 )
-                .formLogin()
-                .loginPage("/profile/login")  .permitAll()
-                .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/family", true)
-                .failureUrl("/login?error=true")//
-                .and().logout().permitAll()
-                .and().build();
-
-
-/*                //.formLogin()
-                //.loginPage("/profile/login").loginProcessingUrl("/spring_security_check") .permitAll()
-                .formLogin()
-                .loginPage("/profile/login")  .loginProcessingUrl("/spring_security_check").permitAll()
-                .failureUrl("/login?error=true")//
-                .and().logout().permitAll()
-
-                .and()
-                .logout().logoutSuccessUrl("/index.html")
-                .and()
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                //.passwordManagement(OAuth2ResourceServerConfigurer::jwt)
-                .httpBasic(Customizer.withDefaults())
-                .build();*/
+                //.logout().permitAll()
+                .build();
     }
 
-/*    @Bean
+/* simple   @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("123")

@@ -7,6 +7,9 @@
 <body>
 
 
+<div th:insert="~{fragments/footer :: footer}"></div>
+
+
 <form name="f" method="post" action="/process_login">
   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
