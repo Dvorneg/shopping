@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<div th:insert="~{fragments/header :: header}"></div>
+
 <!--/*@thymesVar id="shopping" type="java.util.List<ru.den.shopping.model.Shopping>"*/-->
 <div th:if="${shopping.isEmpty()}">
     <p>Покупки пока не запланированы!</p>
@@ -37,6 +39,8 @@
 </div>
 
 <hr/>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<header th:fragment="header" style="background-color: darkseagreen">
+    <!--/*@thymesVar id="loginError" type="java.lang.String"*/-->
+    <!--<p th:if="${loginError}" class="error">Wrong user or password</p>-->
+    <span> &#10027; Список покупок  &#10027; </span>
+
+    <!--/*@thymesVar id="#authorization" type="org.thymeleaf.extras.springsecurity6.auth.Authorization"*/-->
+    <!--/*@thymesVar id="expression" type="java.lang.String"*/-->
+    <div th:if="${#authorization.expression('isAnonymous()')}" style="float: right">
+        <form name="f" method="post" action="/process_login">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <label for="username">Введите имя пользователя:</label>
+            <input type="text" name="username" id="username"/>
+            <label for="password">Введите пароль:</label>
+            <input type="password" name="password" id="password"/>
+            <input type="submit" value="🚪Login"/>
+
+            <div th:if="${param.error}" style="color: red">
+                Неправильное имя и/или пароль
+            </div>
+        </form>
+    </div>
+
+    <!--style="float: right-->
+
+    <div th:if="${#authorization.expression('hasRole(''USER'')')}" style="float: right">
+        <!--/*@thymesVar id="#authentication" type="org.springframework.security.core.Authentication"*/-->
+        <!--align="right"-->
+        <form th:action="@{/logout}" th:method="POST" >
+            Profile:
+            <a th:text="${#authentication.name}">
+                The value of the "name" property of the authentication object should appear here.
+            </a>
+            <input type="submit" value="Logout"/>
+        </form>
+
+    </div>
+
+<!--</header>
+</body>-->
+<!--
+</html>-->

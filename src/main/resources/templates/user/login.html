@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <meta charset="UTF-8">
-  <title>Login page</title>
+
+    <title>Login page</title>
+    <header th:replace ="~{fragments/head :: head}"></header>
+
 </head>
 <body>
+<div th:insert="~{fragments/header :: header}"></div>
 
+<sec:authorize access="isAuthenticated()">
+    <% response.sendRedirect("/"); %>
+</sec:authorize>
 
-<div th:insert="~{fragments/footer :: footer}"></div>
-
-
-<form name="f" method="post" action="/process_login">
+<!--<form name="f" method="post" action="/process_login">
   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
   <label for="username">Введите имя пользователя:</label>
@@ -24,7 +27,8 @@
   <div th:if="${param.error}" style="color: red">
     Неправильное имя и пароль
   </div>
-</form>
+</form>-->
 
+<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,9 +40,9 @@ public class WebSecurityConfig {
                 //.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth) -> auth
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                        .requestMatchers("/resources/css/**").permitAll()
-                        .requestMatchers("/resources/images/**").permitAll()
-                        .requestMatchers("/profile/register", "/webjars/**").permitAll()
+                        .requestMatchers("/resources/static/**").permitAll()
+                        //.requestMatchers("/images/**").permitAll()
+                        //.requestMatchers("/profile/register", "/webjars/**").permitAll()
                         .requestMatchers("/about", "/about").permitAll()
                         .requestMatchers("/WEB-INF/lib/**").permitAll()
                         .requestMatchers("/**").authenticated()
@@ -52,11 +53,13 @@ public class WebSecurityConfig {
                         .loginPage("/profile/login").permitAll()
                         .loginProcessingUrl("/process_login")
                         .defaultSuccessUrl("/family", true)
-                        .failureUrl("/profile/login?error=true")//
+                        //.failureUrl("/profile/login-error")//
+                        .failureUrl("/profile/login?error=true")
                 )
-                //.logout().permitAll()
+                .logout(Customizer.withDefaults())
                 .build();
     }
+
 
 /* simple   @Bean
     public UserDetailsService userDetailsService() {
