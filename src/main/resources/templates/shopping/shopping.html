@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 
-<head>
-    <title>Все покупки</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
-</head>
+<head th:replace ="~{fragments/head :: head}"></head>
 <body>
 <div>
     <!--/*@thymesVar id="shopping" type="java.util.List<ru.den.shopping.model.Shopping>"*/-->

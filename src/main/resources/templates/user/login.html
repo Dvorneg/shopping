@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<head>
     <title>Login page</title>
-    <header th:replace ="~{fragments/head :: head}"></header>
-
-</head>
+    &lt;!&ndash;<head th:replace ="~{fragments/head :: head}"></head>&ndash;&gt;
+    <head th:replace="fragments/head :: head"></head>
+</head>-->
+<head th:replace ="~{fragments/head :: head}"></head>
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
 
 <sec:authorize access="isAuthenticated()">
-    <% response.sendRedirect("/"); %>
+    <!--<% response.sendRedirect("/"); %>-->
+
 </sec:authorize>
+
+<a href="/profile/registration">Зарегистрироваться</a>
 
 <!--<form name="f" method="post" action="/process_login">
   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
@@ -29,6 +34,6 @@
   </div>
 </form>-->
 
-<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

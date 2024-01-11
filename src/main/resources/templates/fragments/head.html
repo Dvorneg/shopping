@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-<head>
+<head th:fragment="head">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <!--<link href="resources/static/css/main.css" rel="stylesheet" type="text/css">-->
-    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/images/favicon.ico}" rel="icon" >
-<!--    <link rel="shortcut icon" href="resources/images/favicon.ico">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>head title</title>
+    <link href="/static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
+    <link href="/static/images/favicon.ico" th:href="@{/images/favicon.ico}" rel="icon" > <!-- rel="shortcut icon" -->
 </head>
 </html>

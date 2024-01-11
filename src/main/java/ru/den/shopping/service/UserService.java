@@ -20,4 +20,14 @@ public class UserService {
     public User get(Integer userId){
         return userRepository.getReferenceById(userId);
     }
+
+
+
+    @Transactional
+    public void register(User user){
+        //кодиров
+        //person.setPassword(passwordEncoder.encode(person.getPassword()));
+        //person.setRole("ROLE_USER");
+        userRepository.save(user);
+    }
 }

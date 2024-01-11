@@ -45,6 +45,7 @@ public class WebSecurityConfig {
                         //.requestMatchers("/profile/register", "/webjars/**").permitAll()
                         .requestMatchers("/about", "/about").permitAll()
                         .requestMatchers("/WEB-INF/lib/**").permitAll()
+                        .requestMatchers("/profile/**").permitAll()
                         .requestMatchers("/**").authenticated()
                         .anyRequest().authenticated())
 
