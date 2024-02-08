@@ -22,6 +22,11 @@ public class WebSecurityConfig {
     public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     private final UserDetailsService userDetailsService;
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
     @Autowired
     public WebSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;

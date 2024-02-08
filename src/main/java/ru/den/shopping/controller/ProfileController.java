@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.den.shopping.model.User;
 import ru.den.shopping.service.UserService;
+import ru.den.shopping.util.UserValidator;
 
 @Slf4j
 @Controller
@@ -19,10 +20,12 @@ import ru.den.shopping.service.UserService;
 public class ProfileController {
 
     private final UserService userService;
+    private final UserValidator userValidator;
 
     @Autowired
-    public ProfileController(UserService userService) {
+    public ProfileController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
+        this.userValidator = userValidator;
     }
 
     @GetMapping("/login")
@@ -48,19 +51,21 @@ public class ProfileController {
     @GetMapping("/registration")
     public String registrationPage(Model model){ //2024 add model
         log.info("ProfileController: registrationPage");
-        System.out.println("------>.>>perred");
+        log.debug("------>.>>before");
         model.addAttribute("user", new User());
         return "/user/registration";
     }
 
     @PostMapping("/registration")
-    public String perfomRegistrationPage(@ModelAttribute("person") @Valid User user, BindingResult bindingResult) {
-        //personValidator.validate(person, bindingResult);
+    public String perfomRegistrationPage(@ModelAttribute("user") @Valid User userToAdd, BindingResult bindingResult) {
+
+        log.debug("------>.>>after");
+        userValidator.validate(userToAdd,bindingResult);
 
         if (bindingResult.hasErrors())
             return "/user/registration";
 
-        userService.register(user);
+        userService.register(userToAdd);
         return "redirect:/auth/login";
     }
 
