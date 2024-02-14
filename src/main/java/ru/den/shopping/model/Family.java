@@ -28,10 +28,10 @@ public class Family {
     @Size(min = 2, max = 200)
     private String name;
 
-    @ManyToMany //(mappedBy ="families")
-    @JoinTable(name="user_family",
+    @ManyToMany (mappedBy ="families")
+/*    @JoinTable(name="user_family",
             joinColumns=@JoinColumn (name="family_id"),
-            inverseJoinColumns=@JoinColumn(name="user_id"))
+            inverseJoinColumns=@JoinColumn(name="user_id"))*/
     private List<User> users;
 
     public Family(Integer id, String name) {
@@ -39,7 +39,30 @@ public class Family {
         this.name = name;
     }
 
-    /*   @OneToMany(mappedBy = "owner")
+    //for default family
+    public Family(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Family family = (Family) o;
+
+        if (!id.equals(family.id)) return false;
+        if (!name.equals(family.name)) return false;
+        return users != null ? users.equals(family.users) : family.users == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+/*   @OneToMany(mappedBy = "owner")
     private List<Shopping> shopping;*/
 
 

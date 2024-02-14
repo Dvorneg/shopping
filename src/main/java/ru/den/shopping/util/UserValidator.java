@@ -30,7 +30,6 @@ public class UserValidator implements Validator {
             return;
 
         User user = (User) target;
-        System.out.println(userService.findAllByNameContainingIgnoreCase(user.getName()).size());
 
         if (!userService.findAllByNameContainingIgnoreCase(user.getName()).isEmpty())
             errors.rejectValue("name", "" ,"Уже зарегестрирован пользователь с таким именем!");

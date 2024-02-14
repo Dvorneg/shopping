@@ -17,4 +17,6 @@ If the family is alone, the shopping list is shown immediately. You need a list 
 - Fix css +
 - Add registration +
 - Fix password +
-- When creating a user, create a default family
+- When creating a user, create a default family+
+- user_family +
+- Give access to your family to other users

@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.den.shopping.model.Family;
 import ru.den.shopping.model.User;
+import ru.den.shopping.service.FamilyService;
 import ru.den.shopping.service.UserService;
 import ru.den.shopping.util.UserValidator;
+
+import java.util.Collections;
 
 @Slf4j
 @Controller
@@ -20,11 +24,13 @@ import ru.den.shopping.util.UserValidator;
 public class ProfileController {
 
     private final UserService userService;
+    private final FamilyService familyService;
     private final UserValidator userValidator;
 
     @Autowired
-    public ProfileController(UserService userService, UserValidator userValidator) {
+    public ProfileController(UserService userService, FamilyService familyService, UserValidator userValidator) {
         this.userService = userService;
+        this.familyService = familyService;
         this.userValidator = userValidator;
     }
 
@@ -65,7 +71,13 @@ public class ProfileController {
         if (bindingResult.hasErrors())
             return "/user/registration";
 
+        //add default family
+        Family family = new Family(userToAdd.getName()+"'s family");
+        familyService.save (family);
+        family.setUsers(Collections.singletonList(userToAdd));
+        userToAdd.setFamilies(Collections.singletonList(family));
         userService.register(userToAdd);
+
         return "redirect:/auth/login";
     }
 

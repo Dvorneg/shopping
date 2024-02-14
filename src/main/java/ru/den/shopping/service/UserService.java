@@ -30,8 +30,6 @@ public class UserService {
 
     @Transactional
     public void register(User user){
-
-        //кодиров
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singletonList(Role.USER));
         userRepository.save(user);

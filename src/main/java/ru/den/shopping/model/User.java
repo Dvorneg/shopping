@@ -36,7 +36,9 @@ public class User {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "user_family", joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "family_id"))
+    @JoinTable(name = "user_family",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "family_id"))
     private List<Family> families;
 
     @Column(name = "password", nullable = false)
@@ -56,17 +58,30 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Role> roles;
 
-/*    public User(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }*/
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        return name.equals(user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
     }
 
     @Override
