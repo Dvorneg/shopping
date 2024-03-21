@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ПОИСК:
+
+<!--/*@thymesVar id="users" type="java.util.List<ru.den.shopping.model.User>"*/-->
+<!--/*@thymesVar id="user" type="ru.den.shopping.model.User"*/-->
+<!--/*@thymesVar id="size" type="java.lang.Integer"*/-->
+<!--/*@thymesVar id="userName" type="java.lang.String"*/-->
+
+<!--<div th:switch="${user}">
+    <p th:case="null"> НУЛ </p>
+    <p th:case!="null">User is a manager</p>
+    <p th:case="*">User is some other thing</p>
+</div>-->
+
+
+<div th:if="${userName==null}">
+    <br/>
+    Введите имя для поиска, чтобы предоставить доступ к списку
+    <br/>
+</div>
+<div th:unless="${userName==null}">
+
+
+</div>
+
+<!--/*@thymesVar id="xxx" type="ru.den.shopping.dto.UserDTO"*/-->
+<!--/*@thymesVar id="userName" type="java.lang.String"*/-->
+<!--/*@thymesVar id="familyId" type="java.lang.Integer"*/-->
+<form th:method="POST" th:action="@{/profile/{id}/search(id=${familyId})}" th:object="${userName}">
+<!--    <p>Введите login полностью!:</p>-->
+    <label for="name">Введите login полностью!:</label>
+    <input type="text" th:name="userName" id="name" maxlength="100" th:value="${userName}"/>
+   <!-- <label for="name">поиска:</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    &lt;!&ndash;/*@thymesVar id="#fields" type="org.thymeleaf.spring6.expression.Fields"*/&ndash;&gt;
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Name error</div>-->
+    <br/>
+
+    <a href="/family/list"> <<- Назад к спискам </a>
+
+    <input type="submit" value="Найти!"/>
+    <!--<input  type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>-->
+    <!--<input  type="submit" value="<-Назад" onclick="/family/list"/>-->
+
+</form>
+
+
+
+<div th:if="${user==null and userName!=null}">
+    <br/>
+    Не найдено!
+    <br/>
+</div>
+<div th:if="${user!=null and userName!=null}">
+    <br/>
+    Найден пользователь. Разрешить ему доступ?
+    <br/>
+
+
+    <!--<form th:method="PATCH" th:action="@{/profile/{id}/search(id=${familyId})}" th:object="${userName}">-->
+    <form th:method="PATCH" th:action="@{/profile/{id}/search(id=${familyId},name=${userName})}" th:object="${userName}">
+        <!--    <p>Введите login полностью!:</p>-->
+        <input type="submit" value="РАЗРЕШИТЬ!"/>
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

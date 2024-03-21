@@ -32,7 +32,7 @@ public class Family {
 /*    @JoinTable(name="user_family",
             joinColumns=@JoinColumn (name="family_id"),
             inverseJoinColumns=@JoinColumn(name="user_id"))*/
-    private List<User> users;
+    private List<User> user;
 
     public Family(Integer id, String name) {
         this.id = id;
@@ -53,7 +53,7 @@ public class Family {
 
         if (!id.equals(family.id)) return false;
         if (!name.equals(family.name)) return false;
-        return users != null ? users.equals(family.users) : family.users == null;
+        return user != null ? user.equals(family.user) : family.user == null;
     }
 
     @Override
@@ -62,8 +62,5 @@ public class Family {
         result = 31 * result + name.hashCode();
         return result;
     }
-/*   @OneToMany(mappedBy = "owner")
-    private List<Shopping> shopping;*/
-
 
 }

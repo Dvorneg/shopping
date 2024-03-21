@@ -13,6 +13,7 @@ import ru.den.shopping.model.Role;
 import ru.den.shopping.model.User;
 import ru.den.shopping.service.FamilyService;
 import ru.den.shopping.service.ShoppingService;
+import ru.den.shopping.service.UserService;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,17 +26,21 @@ public class FamilyController {
     private final FamilyService familyService;
     private final ShoppingService shoppingService;
     private final ModelMapper modelMapper;
+    private final UserService userService;
 
-    public FamilyController(FamilyService familyService, ShoppingService shoppingService, ModelMapper modelMapper) {
+
+    public FamilyController(FamilyService familyService, ShoppingService shoppingService, ModelMapper modelMapper, UserService userService) {
         this.familyService = familyService;
         this.shoppingService = shoppingService;
         this.modelMapper = modelMapper;
+
+        this.userService = userService;
     }
 
     @GetMapping()
     public String getAll(Model model, @RequestParam(value = "id", required = false) Integer id) {
 
-        List<Family> families= familyService.getAllFamily();
+        List<Family> families= familyService.getAllFamilyByUser(userService.getAuthUser() );
 
         if (id != null) {
             return "redirect:/family/" + id;
@@ -124,7 +129,7 @@ public class FamilyController {
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("families", familyService.getAllFamily());
-        log.info("/family/list ");
+        log.info("/family/list");
         return "/family/list";
     }
 

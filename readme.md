@@ -20,3 +20,7 @@ If the family is alone, the shopping list is shown immediately. You need a list 
 - When creating a user, create a default family+
 - user_family +
 - Give access to your family to other users
+- view only your shopping
+- http://localhost:8081/family/2 add header and footer
+- remove duplicates when adding user access!
+- getAll family controller

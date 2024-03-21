@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.den.shopping.model.Family;
+import ru.den.shopping.model.User;
 import ru.den.shopping.repository.FamilyRepository;
 import ru.den.shopping.util.ShoppingException;
 
@@ -45,5 +46,9 @@ public class FamilyService {
         familyRepository.save(updatedFamily);
     }
 
+    public List<Family> getAllFamilyByUser(User user)
+    {
+        return familyRepository.findAllByUser(user);
+    }
 
 }

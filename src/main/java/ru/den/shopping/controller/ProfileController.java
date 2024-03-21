@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.den.shopping.model.Family;
 import ru.den.shopping.model.User;
 import ru.den.shopping.service.FamilyService;
@@ -41,7 +39,6 @@ public class ProfileController {
     }
 
     @GetMapping("/")
-    // @ResponseBody
     public String index() {
         log.info("стартовая страница");
         return "/family/list";
@@ -74,11 +71,51 @@ public class ProfileController {
         //add default family
         Family family = new Family(userToAdd.getName()+"'s family");
         familyService.save (family);
-        family.setUsers(Collections.singletonList(userToAdd));
+        family.setUser(Collections.singletonList(userToAdd));
         userToAdd.setFamilies(Collections.singletonList(family));
         userService.register(userToAdd);
 
         return "redirect:/auth/login";
+    }
+
+    @GetMapping("/{id}/search")
+    //public String search(@RequestParam(name = "user", defaultValue = "test") User user, Model model) {
+    public String search(@RequestParam(name = "userName",required = false) String userName, Model model, @PathVariable("id") Integer familyId) {
+
+        User user = userService.findByName(userName).orElse(null);
+        model.addAttribute("user", user);
+        model.addAttribute("familyId", familyId);
+        model.addAttribute("userName", userName);
+        log.info("/user/search before");
+        return "/user/search";
+    }
+
+    //after search
+    @PostMapping("/{id}/search")
+    //public String postSearch(@ModelAttribute("userName") @Valid UserDTO userDTO, BindingResult bindingResult)
+    public String postSearch(@ModelAttribute("userName") String userName, RedirectAttributes redirectAttributes, @PathVariable("id") Integer familyId)
+    {
+
+        log.info("/user/search:" +userName);
+ /*       if (bindingResult.hasErrors()) {
+            return "/profile/search";
+        }*/
+
+        //User user = userService.findByName(userName).orElse(new User());
+        redirectAttributes.addAttribute("userName", userName);
+        return "redirect:/profile/"+familyId+"/search";
+    }
+
+    //after search
+    @PatchMapping ("/{id}/search")
+    //public String patchSearch(@ModelAttribute("userName") @Valid UserDTO userDTO, BindingResult bindingResult)
+    public String patchSearch(@RequestParam(name = "name") String userName, @PathVariable("id") Integer familyId)
+    {
+
+        log.info("Patch family id="+familyId+", for the user=" +userName);
+        User user = userService.findByName(userName).get();
+        userService.addFamilyForUser(user,familyId);
+        return "redirect:/family/list";
     }
 
 }

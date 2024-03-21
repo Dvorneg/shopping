@@ -12,6 +12,9 @@
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
 
+    <hr/>
+    <a th:href="@{/profile/{id}/search(id=${family.getId()})}">Добавить доступ другим пользователям ...</a>
+    <br/>
     <input type="submit" value="Сохранить!"/>
     <input type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
 </form>

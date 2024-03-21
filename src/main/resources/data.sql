@@ -17,6 +17,8 @@ INSERT INTO users (id, name, password) VALUES
 
 INSERT INTO user_family(family_id, user_id) VALUES
 (2,5);
+INSERT INTO user_family(family_id, user_id) VALUES
+ (3,5);
 
 insert into user_role (user_id, role) VALUES
 (5, 'USER');
