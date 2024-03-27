@@ -62,7 +62,7 @@ public class FamilyController {
         model.addAttribute("familyId", id);
         model.addAttribute("buy", family);
         model.addAttribute("shopping", shoppingService.getAllShoppingByOwner(family));
-        model.addAttribute("familiesSize", familyService.getAllFamily().size());
+        model.addAttribute("familiesSize", familyService.getAllFamilyByUser(userService.getAuthUser()).size());
         log.info("get all shopping by family");
         return "/shopping/list";
     }
@@ -84,6 +84,7 @@ public class FamilyController {
         }
         Family family = convertToFamily(familyDTO);
         familyService.save(family);
+        userService.addFamilyForUser(userService.getAuthUser(), family.getId());
         return "redirect:/family";
     }
 
@@ -108,7 +109,6 @@ public class FamilyController {
         return "redirect:/family/list";
     }
 
-
     //page delete
     @GetMapping("/{id}/delete")
     public String deleteFamily(Model model, @ModelAttribute("family") FamilyDTO familyDTO,@PathVariable("id") Integer id) {
@@ -128,7 +128,7 @@ public class FamilyController {
     //list of family
     @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("families", familyService.getAllFamily());
+        model.addAttribute("families", familyService.getAllFamilyByUser(userService.getAuthUser() ));
         log.info("/family/list");
         return "/family/list";
     }

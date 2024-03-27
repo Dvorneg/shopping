@@ -14,6 +14,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByName(String name);
 
+    //if name empty - all users
     List<User> findAllByNameContainingIgnoreCase(String name);
 
     // test

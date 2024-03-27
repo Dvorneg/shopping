@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-
 <head th:replace ="~{fragments/head :: head}"></head>
 <body>
+
+<div th:insert="~{fragments/header :: header}"></div>
+
 <!--/*@thymesVar id="shopping" type="java.util.List"*/-->
 <div th:if="${shopping.isEmpty()}">
     <p>Покупки пока не запланированы!</p>
@@ -60,5 +62,7 @@
 </div>
 
 <!--@{/people/{id}(id=${person.getId()})}-->
+<div th:insert="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

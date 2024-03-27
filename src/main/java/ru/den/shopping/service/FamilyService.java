@@ -48,7 +48,7 @@ public class FamilyService {
 
     public List<Family> getAllFamilyByUser(User user)
     {
-        return familyRepository.findAllByUser(user);
+        return familyRepository.findAllByUserContains(user);
     }
 
 }

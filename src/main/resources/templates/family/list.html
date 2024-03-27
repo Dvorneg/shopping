@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace ="~{fragments/head :: head}"></head>
 <body>
+
+<div th:insert="~{fragments/header :: header}"></div>
 
 <!--/*@thymesVar id="families" type="java.util.List<ru.den.shopping.model.Family>"*/-->
 <div th:if="${families.isEmpty()}">
@@ -34,6 +36,8 @@
     <br/>
     <a th:href="@{/family}">Перейти к покупкам</a>
 </div>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

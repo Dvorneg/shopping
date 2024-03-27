@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace ="~{fragments/head :: head}"></head>
 <body>
+
+<div th:insert="~{fragments/header :: header}"></div>
 
 <!--<a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"-->
 <!--<a th:href="@{/order/details(id=3,action='show_all')}">-->
@@ -33,6 +34,8 @@
     <input type="submit" value="Сохранить!"/>
     <input type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
 </form>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

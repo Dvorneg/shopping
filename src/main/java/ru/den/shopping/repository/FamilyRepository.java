@@ -12,4 +12,6 @@ public interface FamilyRepository extends JpaRepository<Family,Integer> {
 
     List<Family> findAllByUser(User user);
 
+    List<Family> findAllByUserContains(User user);
+
 }

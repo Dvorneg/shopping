@@ -3,6 +3,8 @@
 <head th:replace ="~{fragments/head :: head}"></head>
 <body>
 
+<div th:insert="~{fragments/header :: header}"></div>
+
 <!--/*@thymesVar id="family" type="ru.den.shopping.dto.FamilyDTO"*/-->
 <form th:method="POST" th:action="@{/family}" th:object="${family}">
     <p>Введите название:</p>
@@ -15,6 +17,8 @@
     <input type="submit" value="Создать!"/>
     <input  type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
 </form>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

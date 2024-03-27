@@ -1,6 +1,5 @@
 package ru.den.shopping.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,11 +11,9 @@ import ru.den.shopping.repository.FamilyRepository;
 import ru.den.shopping.repository.UserRepository;
 import ru.den.shopping.security.SecurityUtil;
 
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -44,7 +41,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-    //if name empty - all users
     public List<User> findAllByNameContainingIgnoreCase(String name){
         return userRepository.findAllByNameContainingIgnoreCase(name);
     }
@@ -53,14 +49,14 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-
-    @Transactional(readOnly = true)
+    @Transactional  //NOT (readOnly = true)!
     public void addFamilyForUser(User user, Integer familyId){
 
         List<Family> allFamily = userRepository.getAllFamilyByUserId(user.getId());
-        allFamily.add(familyRepository.getReferenceById(familyId));
-
-        allFamily.stream().distinct().collect(Collectors.toList());//delete duplication
+        if (!allFamily.contains(familyRepository.getReferenceById(familyId)))
+        {
+            allFamily.add(familyRepository.getReferenceById(familyId));
+        }
         user.setFamilies(allFamily);
         userRepository.save(user);
     }
@@ -68,6 +64,5 @@ public class UserService {
     public User getAuthUser(){
         return SecurityUtil.getLoggedUser();
     }
-
 
 }

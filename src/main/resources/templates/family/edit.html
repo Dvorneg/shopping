@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace ="~{fragments/head :: head}"></head>
 <body>
+
+<div th:insert="~{fragments/header :: header}"></div>
+
 
 <!--/*@thymesVar id="family" type="ru.den.shopping.model.Family"*/-->
 <form th:method="PATCH" th:action="@{/family/{id}(id=${family.getId()})}" th:object="${family}">
@@ -18,6 +20,8 @@
     <input type="submit" value="Сохранить!"/>
     <input type="submit" value="<-Назад" onclick="window.history.back(); return false;"/>
 </form>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>
