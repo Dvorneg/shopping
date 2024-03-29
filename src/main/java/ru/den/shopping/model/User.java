@@ -39,6 +39,7 @@ public class User {
     @JoinTable(name = "user_family",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "family_id"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Family> families;
 
     @Column(name = "password", nullable = false)

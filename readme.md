@@ -20,19 +20,15 @@ If the family is alone, the shopping list is shown immediately. You need a list 
 - When creating a user, create a default family+
 - user_family +
 - Give access to your family to other users+
-- view only you are shopping?
+- view only you are shopping+
 - http://localhost:8081/family/2 add header and footer+
 - remove duplicates when adding user access!+
 - getAll family controller+
+- when deleting a family or shopping an error+
 - different access levels full, read, add
-- when deleting a family or shopping an error
+- Checking whether the user has access to the record being processed
 
 
 
 
 /*SELECT nextVal('"shopping_id_seq"');  /* next value sequence or SELECT setval('the_primary_key_sequence', (SELECT MAX(the_primary_key) FROM the_table)+1);*/
-SELECT nextVal('"shopping_id_seq"');  /* next value sequence or SELECT setval('the_primary_key_sequence', (SELECT MAX(the_primary_key) FROM the_table)+1);*/
-SELECT nextVal('"shopping_id_seq"');  /* next value sequence or SELECT setval('the_primary_key_sequence', (SELECT MAX(the_primary_key) FROM the_table)+1);*/
-
-SELECT nextVal('"family_id_seq"');
-SELECT nextVal('"users_id_seq"');*/

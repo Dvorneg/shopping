@@ -20,10 +20,6 @@ INSERT INTO user_family(family_id, user_id) VALUES
 insert into user_role (user_id, role) VALUES
 (1, 'USER');
 
-
-SELECT nextVal('"shopping_id_seq"');
-SELECT nextVal('"shopping_id_seq"');
-SELECT nextVal('"shopping_id_seq"');
-
-SELECT nextVal('"family_id_seq"');
-SELECT nextVal('"family_id_seq"');
+SELECT setval('"shopping_id_seq"', (SELECT MAX(id) FROM public."shopping")+1);
+SELECT setval('"family_id_seq"', (SELECT MAX(id) FROM public."family")+1);
+SELECT setval('"users_id_seq"', (SELECT MAX(id) FROM public."users")+1);

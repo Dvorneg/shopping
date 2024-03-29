@@ -50,8 +50,9 @@ public class ShoppingController {
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id, @RequestParam(value = "familyId", required = false) Integer familyId) {
         //model.addAttribute("familyId", familyId);
-        log.info("вернёмся к семье {}", familyId);
+        log.info("редактирование семьи {} покупки {}", familyId,id);
         model.addAttribute("buy", shoppingService.getShopping(id));
+        model.addAttribute("familyId", familyId);
         return "/shopping/edit";
     }
 
@@ -92,9 +93,9 @@ public class ShoppingController {
         return "redirect:/family/" + shopping.getOwner().getId();
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
-        Integer familyId = shoppingService.getShopping(id).getOwner().getId();
+    @GetMapping("/{id}/delete")
+    public String delete(@RequestParam(value = "familyId", required = false) Integer familyId, @PathVariable Integer id) {
+        log.info("удаление семьи {} покупки {}", familyId,id);
         shoppingService.delete(id);
         return "redirect:/family/" + familyId;
     }

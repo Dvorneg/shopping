@@ -113,7 +113,7 @@ public class FamilyController {
     @GetMapping("/{id}/delete")
     public String deleteFamily(Model model, @ModelAttribute("family") FamilyDTO familyDTO,@PathVariable("id") Integer id) {
         model.addAttribute("family", familyService.getFamily(id));
-        log.info("start deleting");
+        log.info("page deleting family...");
         return "/family/delete";
     }
 
@@ -121,6 +121,7 @@ public class FamilyController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         log.info("start deleting id=" + id);
+        userService.deleteFamilyForUser(userService.getAuthUser(),id);
         familyService.delete(id);
         return "redirect:/family/list";
     }

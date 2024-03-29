@@ -61,6 +61,15 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void deleteFamilyForUser(User user, Integer familyId){
+
+        List<Family> allFamily = userRepository.getAllFamilyByUserId(user.getId());
+        allFamily.remove(familyRepository.getReferenceById(familyId));
+        user.setFamilies(allFamily);
+        userRepository.save(user);
+    }
+
     public User getAuthUser(){
         return SecurityUtil.getLoggedUser();
     }

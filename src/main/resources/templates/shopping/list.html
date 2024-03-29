@@ -33,9 +33,7 @@
         <td th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }"> <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#10006; </a> </td>-->
 
         <td> <a th:href="@{/shopping/{id}/edit(id=${buy.getId()},familyId=${familyId})}" class="no-underline-style"> &#9998; </a> </td>
-        <td> <a th:href="@{/shopping/{id}(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#10006; </a> </td>
-
-
+        <td> <a th:method="delete" th:href="@{/shopping/{id}/delete(id=${buy.getId()},familyId=${familyId}) }" class="no-underline-style"> &#10006; </a> </td>
 
     </tr>
 </table>
